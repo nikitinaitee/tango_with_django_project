@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<!--informs Django’s template engine that we will be using static files -->
+<!--within the template. This then enables us to access the media in the -->
+<!--static directories via the use of the static template tag. -->
+{% load staticfiles %} <!-- New line -->
+
+<html>
+	<head>
+		<title>About</title>
+	</head>
+	<body>
+		<h1>Rango says...</h1>
+		<div>
+			here is the about page. <br />
+			<strong>{{ boldmessage }}</strong><br />
+		</div>
+		
+		<div>
+			<a href="/rango/">Index</a><br />
+			
+<!-- static files do not change. These files form the core
+components of your website. -->
+			<img src="{% static "images/about.png" %}" alt="Info" /><br />
+			
+<!--Media files are user defined; and as such, they may change often!-->
+			<img src="/media/cat.jpg" alt="A picture of a cat" /><br />
+
+		</div>
+	</body>
+</html>
