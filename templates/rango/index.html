@@ -1,53 +1,47 @@
 <!DOCTYPE html>
-
-<!--informs Django’s template engine that we will be using static files -->
-<!--within the template. This then enables us to access the media in the -->
-<!--static directories via the use of the static template tag. -->
-{% load staticfiles %} <!-- New line -->
-
-<html>
-	<head>
-		<title>Rango</title>
-	</head>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block title_block %}
+    Index
+{% endblock %}
+{% block body_block %}
+	<h1>Rango says...</h1>
+	<div>
+		hey there partner! <br />
+	<div>
+	{% if categories %}
+	<h3>Most Liked Categories</h3>
+	<ul>
+		{% for category in categories %}
+		<li>
+<!-- 		<a href="/rango/category/{{ category.slug }}">{{ category.name }}</a>
+ -->		<a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
+			{{category.likes}}
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+		<strong>There are no categories present.</strong>
+	{% endif %}
+	</div>
 	
-	<body>
-		<h1>Rango says...</h1>
-		<div>hey there partner! <br />
-		<div>
-		{% if categories %}
-		<h3>Most Liked Categories</h3>
-		<ul>
-			{% for category in categories %}
+	<div>
+	{% if pages %}
+	<h3>Most Viewed Pages</h3>
+		<ol style="list-style-type:disc;">
+		{% for page in pages %}
 			<li>
-			<a href="/rango/category/{{ category.slug }}">{{ category.name }}</a>
-			{{category.likes}}</li>
-			{% endfor %}
-		</ul>
-		{% else %}
-			<strong>There are no categories present.</strong>
-		{% endif %}
-		</div>
-		
-		<div>
-		{% if pages %}
-		<h3>Most Viewed Pages</h3>
-			<ol style="list-style-type:disc;">
-			{% for page in pages %}
-				<li><a href="{{ page.url }}">{{ page.title}}</a>
-				{{ page.views}}</li>
-			{% endfor %}
-			</ol>
-		{% else %}
-			<strong>No pages.</strong>
-		{% endif %}
-		
-		</div>
-		<div>
-			<a href="/rango/add_category/">Add a New Category</a><br />
-
-			<a href="/rango/about/">About Rango</a><br />
-			<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
-		</div>
-	</body>
-</html>
-
+				<a href="{{ page.url }}">{{ page.title}}</a>
+				{{ page.views}}
+			</li>
+		{% endfor %}
+		</ol>
+	{% else %}
+		<strong>No pages.</strong>
+	{% endif %}
+	
+	</div>
+	<div>
+		<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
+	</div>
+{% endblock %}

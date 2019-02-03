@@ -23,7 +23,12 @@ def index(request):
 
 def about (request):
     context_dict = {'boldmessage': "This tutorial has been put together by Ugne Nikitinaite"}
-    return render(request, 'rango/about.html', context=context_dict)
+	# prints out whether the method is a GET or a POST
+	print(request.method)
+	# prints out the user name, if no one is logged in it prints `AnonymousUser`
+	print(request.user)
+	
+	return render(request, 'rango/about.html', context=context_dict)
 
 def show_category(request, category_name_slug):
     # Create a context dictionary which we can pass to the template rendering engine.
