@@ -1,0 +1,32 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	Register
+{% endblock %}
+
+{% block body_block %}
+	<h1>Register for Rango</h1>
+	{% if registered %}
+		Rango says: <strong>thank you for registering!</strong>
+		<a href="{% url 'index' %}">Return to the homepage.</a><br />
+	{% else %}
+		Rango says: <strong>register here!</strong><br />
+		
+<!-- When you want users to upload files from a form, it’s an absolute must to set 
+enctype to multipart/form-data. This attribute and value combination instructs 
+your browser to send form data in a special way back to the server. -->
+
+		<form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+
+			{% csrf_token %}
+
+			<!-- Display each form -->
+			{{ user_form.as_p }}
+			{{ profile_form.as_p }}
+
+			<!-- Provide a button to click to submit the form. -->
+			<input type="submit" name="submit" value="Register" />
+		</form>
+	{% endif %}
+{% endblock %}

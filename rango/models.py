@@ -1,6 +1,22 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
+class UserProfile(models.Model):
+	# This line is required. Links UserProfile to a User model instance.
+	user = models.OneToOneField(User)
+	# The additional attributes we wish to include.
+	website = models.URLField(blank=True)
+	picture = models.ImageField(upload_to='profile_images', blank=True)
+	# Override the __unicode__() method to return out something meaningful!
+	# Remember if you use Python 2.7.x, define __unicode__ too!
+	def __str__(self):
+		return self.user.username
+# ImageField field has an upload_to attribute. The value
+# of this attribute is conjoined with the project’s MEDIA_ROOT setting to provide a path with which
+# uploaded profile images will be stored. For example, a MEDIA_ROOT of <workspace>/tango_with_-
+# django_project/media/ and upload_to attribute of profile_images will result in all profile images
+# being stored in the directory <workspace>/tango_with_django_project/media/profile_images/.
 
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
