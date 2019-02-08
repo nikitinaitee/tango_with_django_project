@@ -14,7 +14,9 @@
 	<body>
 		<div>
 			{% block sidebar_block %}
-				{% get_category_list category %}
+				<ul>
+					{% get_category_list category %}
+				</ul>
 			{% endblock %}
 		</div>
 		<div>

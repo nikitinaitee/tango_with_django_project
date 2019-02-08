@@ -27,7 +27,7 @@ def index(request):
 	context_dict['visits'] = request.session['visits']
 	response = render(request, 'rango/index.html', context=context_dict)
     #Call the helper function to handle the cookies
-	#visitor_cookie_handler(request)
+	visitor_cookie_handler(request)
 	#Return response back to the suer, updating any cookies that need changed.
 	return response
 
